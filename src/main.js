@@ -16,6 +16,8 @@ const cellsInitialState = [
 	{ index: 8, value: null },
 ]
 
+const players = { X: '❌', O: '⭕' }
+
 const store = createStore({
 	state() {
 		return {
@@ -30,7 +32,7 @@ const store = createStore({
 				[6, 4, 2],
 			],
 			cells: [...cellsInitialState],
-			currentPlayer: '❌',
+			currentPlayer: players.X,
 		}
 	},
 	mutations: {
@@ -40,17 +42,19 @@ const store = createStore({
 				store.getters.checkWinner == null
 			) {
 				state.cells[index] = { index: index, value: state.currentPlayer }
-
-				if (state.currentPlayer == '❌') {
-					state.currentPlayer = '⭕'
-				} else {
-					state.currentPlayer = '❌'
-				}
+				store.commit('changeTurn')
 			}
 		},
 		reset(state) {
 			state.cells = [...cellsInitialState]
 			state.currentPlayer = '❌'
+		},
+		changeTurn(state) {
+			if (state.currentPlayer == players.X) {
+				state.currentPlayer = players.O
+			} else {
+				state.currentPlayer = players.X
+			}
 		},
 	},
 	getters: {
