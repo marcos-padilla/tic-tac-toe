@@ -2,4 +2,4 @@
 
 ## **Title:** tic-tac-toe
 
-## Local game of tic-tac-toe with **Vue.js**
+## Game of tic-tac-toe with **Vue.js**
