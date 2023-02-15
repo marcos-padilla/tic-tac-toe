@@ -19,20 +19,28 @@ const cellsInitialState = [
 const store = createStore({
 	state() {
 		return {
-			/* cells: [
-				...Array(9).map((el, index) => {
-					return { index: index, value: null }
-				}),
-			], */
+			winnerStates: [
+				[0, 1, 2],
+				[3, 4, 5],
+				[6, 7, 8],
+				[0, 3, 6],
+				[1, 4, 7],
+				[2, 5, 8],
+				[0, 4, 8],
+				[6, 4, 2],
+			],
 			cells: [...cellsInitialState],
-			players: ['❌', '⭕'],
 			currentPlayer: '❌',
 		}
 	},
 	mutations: {
 		play(state, index) {
-			if (state.cells[index].value == null) {
+			if (
+				state.cells[index].value == null &&
+				store.getters.checkWinner == null
+			) {
 				state.cells[index] = { index: index, value: state.currentPlayer }
+
 				if (state.currentPlayer == '❌') {
 					state.currentPlayer = '⭕'
 				} else {
@@ -43,6 +51,22 @@ const store = createStore({
 		reset(state) {
 			state.cells = [...cellsInitialState]
 			state.currentPlayer = '❌'
+		},
+	},
+	getters: {
+		checkWinner(state) {
+			let winner = null
+			state.winnerStates.forEach((s) => {
+				if (
+					state.cells[s[0]].value &&
+					state.cells[s[0]].value &&
+					state.cells[s[0]].value == state.cells[s[1]].value &&
+					state.cells[s[0]].value == state.cells[s[2]].value
+				) {
+					winner = state.cells[s[0]].value
+				}
+			})
+			return winner
 		},
 	},
 })
