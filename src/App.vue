@@ -1,6 +1,10 @@
 <template>
     <div>
-        <div class="turn">
+        <div class="turn" v-if="tie">
+            <span>Tie</span>
+            <button @click="reset">Reset</button>
+        </div>
+        <div class="turn" v-else>
             <span v-if="checkWinner == null">Turn: {{ currentPlayer }}</span>
             <span v-else>
                 Winner: {{ checkWinner }}
@@ -34,6 +38,9 @@ export default {
         },
         checkWinner() {
             return this.$store.getters.checkWinner
+        },
+        tie() {
+            return this.$store.getters.checkTie
         }
     }
 }
@@ -43,6 +50,10 @@ export default {
 .turn {
     margin-bottom: 20px;
     font-size: 3rem;
+    display: flex;
+    place-items: center;
+    justify-content: center;
+    gap: 10px
 }
 
 .bottom-buttons {

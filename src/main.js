@@ -72,6 +72,15 @@ const store = createStore({
 			})
 			return winner
 		},
+		checkTie(state) {
+			let tie = true
+			state.cells.forEach((cell) => {
+				if (cell.value == null) {
+					tie = false
+				}
+			})
+			return tie
+		},
 	},
 })
 
