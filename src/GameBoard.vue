@@ -11,11 +11,11 @@ export default {
     components: {
         CellComponent,
     },
-    props: {
-        cells: Array
+    computed: {
+        cells() {
+            return this.$store.state.cells
+        }
     },
-    methods: {
-    }
 }
 </script>
 

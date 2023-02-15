@@ -1,7 +1,7 @@
 <template>
-    <div class="cell" @click="cell = '5'">
-        <span v-if="cell != null">
-            {{ cell }}
+    <div class="cell" @click="play">
+        <span v-if="cell.value">
+            {{ cell.value }}
         </span>
     </div>
 </template>
@@ -9,7 +9,12 @@
 <script>
 export default {
     props: {
-        cell: String
+        cell: Object,
+    },
+    methods: {
+        play() {
+            this.$store.commit('play', this.cell.index)
+        }
     }
 }
 </script>
@@ -24,6 +29,7 @@ export default {
     cursor: pointer;
     display: grid;
     place-items: center;
+    user-select: none;
 }
 
 .cell:hover {
