@@ -13,7 +13,6 @@ export default {
     data() {
         return {
             cells: Array(9).fill(null),
-            players: ['❌', '⭕']
         }
     }
 }
